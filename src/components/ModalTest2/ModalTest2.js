@@ -4,39 +4,36 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-//import '../App.css';
+const Botton = styled.div`
+  background-color:#ededed;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#777777;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+`;
+const Inputtext = styled.input`
+ width: 100%;
+ padding: 12px 20px;
+ margin: 8px 4px;
+ box-sizing: border-box;
+`;
+
 class ModalTest2 extends Component {
 
 
-
   constructor (props) {
-
       super(props);
          this.state = {
            tasks : props.tasks
-        //   // accounts: [],
-        //   //
-        //   // tasks: [
-        //   //   {name: "Learn Angular", category:"wip", bgcolor: "yellow"},
-        //   //   {name: "React", category:"wip", bgcolor: "pink"},
-        //   //   {name: "Vue", category:"complete", bgcolor: "skyblue"}
-        //   // ],
-        //   // tasks1:[
-        //   //    {name: "input", id:"Name" , title: "" , label: "Workshop", type:"string", category:"wip"}
-        //   //   // ,{name: "input", id:"Semester" , title: "", label: "Semester", type:"string", category:"wip"}
-        //   //   ,{name: "input", id:"Syllabus" , title: "" , label: "Syllabus", type:"url", category:"wip"}
-        //   //   // ,{name: "input", id:"Title" , title: "", label: "Title", type:"string", category:"wip"}
-        //   //   ,{name: "input", id:"StartDate" , title: "", label: "Start Date", type:"date", category:"wip"}
-        //   //   ,{name: "input", id:"EndDate" , title: "", label: "End Date", type:"date", category:"wip"}
-        //   //   // ,{name: "input", id:"HomePhone" , title: "", label: "Home Phone", type:"number", category:"wip"}
-        //   //   // ,{name: "input", id:"MailingAddress" , title: "", label: "Mailing Address", type:"string", category:"wip"}
-        //   //   // ,{name: "input", id:"Mobile" , title: "", label: "Mobile", type:"number", category:"wip"}
-        //   //   ,{name: "submitButton", id:"Submit" , title: "",  category:"wip", bgcolor: "green"}
-        //   //
-        //   // //  ,{name: "label", id:"lable First Name" , title: "", label: "First Name", type:"string", category:"wip"}
-        //   // ]
-         };
 
+         };
 }
 
 /// define funcitons
@@ -54,7 +51,7 @@ class ModalTest2 extends Component {
    let id = ev.dataTransfer.getData("id");
    console.log("ondrop= "+ id);
    let tasks = this.state.tasks.filter( task=> {
-      if(task.id == id) {
+      if(task.name == id) {
         task.category = cat
       }
       return task;
@@ -65,11 +62,34 @@ class ModalTest2 extends Component {
    });
  }
 
+ atoms = (t) =>
+ {
+   if(t.type === 'input')
+   return (
+     <Inputtext
+       onDragStart={(e)=> this.onDragStart(e, t.name)}
+       draggable
+       key={t.name} />
+
+   );
+   else if (t.type === 'botton')
+   return(
+     <Botton
+       onDragStart={(e)=> this.onDragStart(e, t.name)}
+       draggable
+       key={t.name}>
+       Submit</Botton>
+   );
+ }
+
 
   render() {
+    ////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////  STYLED  ///////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     const Error = styled.div`color:red`;
     const In = styled.div`border: solid 3px; color:yellow`;
-    const divcontainer = styled.div`text-align: center`;
+    const Divcontainer = styled.div`text-align: center`;
     const Divwip = styled.div`
     position: absolute;
     width: 30%;
@@ -93,48 +113,37 @@ class ModalTest2 extends Component {
     text-align: left
      `;
 
+     ////////////////////////////////////////////////////////////////////////////////
+     ///////////////////////////////////////          ///////////////////////////////
+     ////////////////////////////////////////////////////////////////////////////////
     var tasks = {
       wip: [],
       complete: []
     }
 
-
+//////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////  Read props & Create atoms  ///////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 this.state.tasks.forEach ( (t)=> {
     tasks[t.category].push(
-      <div
-        onDragStart={(e)=> this.onDragStart(e, t.name)}
-        draggable
-        key={t.name} className="draggable" style= {{backgroundColor: t.bgcolor}}>
-        {t.name}
-      </div>
+      this.atoms(t)
     );
  });
-
+ //////////////////////////////////////////////////////////////////////////////////////
+ ///////////////////////////////                           ////////////////////////////
+ /////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div>
 
-
-    <div className="container-drag">
-
-     {/* <h2 className="header">Drag </h2> */}
-
-      {/*
-     <!--////////////////////////////////////////////////////////////////
-     ///////////////////////// Two parts  ///////////////////////////
-     ////////////////////////////////////////////////////////////////
-     */}
-
-
+    <Divcontainer>
        <Divwip
          onDrop={(e)=>{this.onDrop(e, "wip")}}
          onDragOver={ e => this.onDragOver(e)}
          >
           {/* <span className="task-header">WIP</span> */}
-
-
           <h3>
-        <Error> d</Error>   Registraion  <In> s </In>Feilds
+           Fields
          </h3>
            <br />
 
@@ -145,6 +154,7 @@ this.state.tasks.forEach ( (t)=> {
          onDragOver={ e => this.onDragOver(e) }
            onDrop={e=> this.onDrop(e, "complete")}
          >
+           {tasks.complete}
           {/* <span className="task-header">Completed</span> */}
           {/* <div className="previewbutton" >
               <Preview { ...this.state} />
@@ -157,12 +167,10 @@ this.state.tasks.forEach ( (t)=> {
             </div>
           </Jumbotron> */}
        </Divdropable>
-    </div>
+    </Divcontainer>
 </div>
   );
   }
-
-
 }
 
 //
@@ -177,7 +185,8 @@ ModalTest2.defaultProps = {
   [
     {name: " First Name", category:"wip", bgcolor: "yellow", type: "input" },
     {name: "Last Name", category:"wip", bgcolor: "pink", type: "input"},
-    {name: "email", category:"wip", bgcolor: "skyblue", type: "input"}
+    {name: "email", category:"wip", bgcolor: "skyblue", type: "input"},
+    {name: "botton", category:"wip", bgcolor: "skyblue", type: "botton"}
   ]
 };
 
