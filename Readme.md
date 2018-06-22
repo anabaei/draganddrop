@@ -1,9 +1,4 @@
 ## To publish
-```javascript
-npm run build
-npm run build:commonjs
-npm publish
-```
 
 ## How it works
 * In preview page, by pressing publish key word, it uses windows session storage. It can save data as string so 

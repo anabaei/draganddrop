@@ -1,6 +1,6 @@
 {
-  "name": "amirnabaei-modaltest2",
-  "version": "0.1.5",
+  "name": "draganddrop-nabaei",
+  "version": "0.1.8",
   "main": "./lib/index.js",
   "engines": {
     "node": ">=4.0.0"
