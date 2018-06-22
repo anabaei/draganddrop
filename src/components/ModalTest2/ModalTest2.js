@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import Preview from './Preview';
 import PropTypes from 'prop-types';
 
 const Botton = styled.div`
@@ -19,9 +20,9 @@ const Botton = styled.div`
 	text-shadow:0px 1px 0px #ffffff;
 `;
 const Inputtext = styled.input`
- width: 100%;
- padding: 12px 20px;
- margin: 8px 4px;
+ width: 80%;
+ padding: 8px 4px;
+ margin: 8px 20px 8px 10px;
  box-sizing: border-box;
 `;
 
@@ -61,16 +62,17 @@ class ModalTest2 extends Component {
       tasks
    });
  }
-
  atoms = (t) =>
  {
    if(t.type === 'input')
    return (
-     <Inputtext
-       onDragStart={(e)=> this.onDragStart(e, t.name)}
-       draggable
-       key={t.name} />
-
+     <div>
+       <label style={{margin: '0% 100% 0% 2%' }}> {t.name} </label>
+       <Inputtext
+         onDragStart={(e)=> this.onDragStart(e, t.name)}
+         draggable
+         key={t.name} />
+     </div>
    );
    else if (t.type === 'botton')
    return(
@@ -80,6 +82,34 @@ class ModalTest2 extends Component {
        key={t.name}>
        Submit</Botton>
    );
+
+   else if(t.type === 'dropdown')
+   {
+
+    var a = [];
+    for(var i of t.options)
+    {
+      a.push( <option value={i}>{i}</option> );
+    }
+     return(
+
+      //  var arrres = [];
+      //  for(var i of t.options){
+      //    arrres.push(<options key={i}>{i}</options>)
+      //  }
+      //   <select>
+      //     {i}
+      //   </select>
+      <div draggable>
+          <label style={{margin: '0% 100% 0% 2%' }}> {t.name} </label>
+          <Inputtext
+            onDragStart={(e)=> this.onDragStart(e, t.name)}
+            draggable
+            key={t.name} />
+      </div>
+     );
+   }
+
  }
 
 
@@ -93,9 +123,9 @@ class ModalTest2 extends Component {
     const Divwip = styled.div`
     position: absolute;
     width: 30%;
-    height: 100vh;
+    height: 100%;
     left: 0;
-    top: 10;
+    top: 0;
     background-color: #cccccc;
     border-right: 1px dotted;
     padding: 1%;
@@ -103,10 +133,10 @@ class ModalTest2 extends Component {
     `;
     const Divdropable = styled.div`
     position: absolute;
-    width: 70%;
-    height: 100vh;
+    width: 66%;
+    height: 100%;
     right: 0;
-    top: 10;
+    top: 0;
     background-color: #800000;
     border-left: 1px dotted;
     padding: 1%;
@@ -156,9 +186,9 @@ this.state.tasks.forEach ( (t)=> {
          >
            {tasks.complete}
           {/* <span className="task-header">Completed</span> */}
-          {/* <div className="previewbutton" >
+
               <Preview { ...this.state} />
-          </div> */}
+        
 
           {/* <Jumbotron>
             <div class="container">
