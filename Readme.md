@@ -1,6 +1,30 @@
-## To publish
 
-## How it works
+### use case 
+```javascript
+import ModalTest2 from './components/ModalTest2';
+
+class App extends Component {
+  render() {
+    const pr = {
+      tasks:
+      [
+        {name: "First Name", category:"wip", bgcolor: "yellow", type: "input" },
+        {name: "Last Name", category:"wip", bgcolor: "pink", type: "input"},
+        {name: "email", category:"wip", bgcolor: "skyblue", type: "input"},
+        {name: "dropdown", category:"wip", bgcolor: "skyblue", type: "dropdown", options:[1,2,3,4]},
+        {name: "submit", category:"wip", bgcolor: "skyblue", type: "botton"}
+      ]
+    };
+    return (
+      <div className="App">
+           <ModalTest2 {...pr} />
+      </div>
+    );
+  }
+}
+```
+
+## After publish clicked
 * In preview page, by pressing publish key word, it uses windows session storage. It can save data as string so 
 ```javascript
 {sessionStorage.setItem('myData', JSON.stringify(this.state.props))}
