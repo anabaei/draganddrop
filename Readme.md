@@ -24,7 +24,7 @@ class App extends Component {
 }
 ```
 
-## How it works
+## After publish clicked
 * In preview page, by pressing publish key word, it uses windows session storage. It can save data as string so 
 ```javascript
 {sessionStorage.setItem('myData', JSON.stringify(this.state.props))}
