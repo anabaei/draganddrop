@@ -1,7 +1,9 @@
 
 ### use case 
+
+* Github [link](https://github.com/anabaei/draganddrop)
 ```javascript
-import ModalTest2 from './components/ModalTest2';
+import ModalTest2 from 'draganddrop-nabaei/lib/ModalTest2';
 
 class App extends Component {
   render() {
