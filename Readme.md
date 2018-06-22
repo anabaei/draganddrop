@@ -1,7 +1,7 @@
 ## To publish
 ```javascript
-node run build
-node run build:commonjs
+npm run build
+npm run build:commonjs
 npm publish
 ```
 
